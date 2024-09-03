@@ -3,7 +3,7 @@ import { View, Text, TextInput, Button, TouchableOpacity, Alert } from 'react-na
 // import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
 import styles from '../styles'; // Import your styles
 
-const SignUpScreen = () => {
+const SignUpScreen = ({ navigation }) => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

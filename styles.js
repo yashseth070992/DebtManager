@@ -3,9 +3,18 @@ import { StyleSheet } from 'react-native';
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    padding: 20,
+  },
+  inputContainer: {
+    marginBottom: 15,
+  },
+  picker: {
+    height: 50,
+    width: '100%',
+  },
+  label: {
+    fontSize: 16,
+    marginBottom: 5,
   },
   scrollViewContainer: {
     flexGrow: 1,
@@ -53,11 +62,6 @@ export default StyleSheet.create({
   text: {
     fontSize: 18,
   },
-  scrollViewContainer: {
-    padding: 20,
-    backgroundColor: '#fff',
-    flexGrow: 1,
-  },
   result: {
     marginTop: 20,
     padding: 10,
@@ -78,7 +82,7 @@ export default StyleSheet.create({
   },
   sliderContainer: {
     marginBottom: 15,
-    paddingHorizontal: 10, // Add padding for better touchable area
+    paddingHorizontal: 10,
     width: '100%',
   },
   sliderLabel: {
@@ -87,7 +91,7 @@ export default StyleSheet.create({
   },
   slider: {
     width: '100%',
-    height: 40, // Maintain height, but you can adjust if needed
+    height: 40,
   },
   googleButton: {
     backgroundColor: '#4285F4',
@@ -113,5 +117,62 @@ export default StyleSheet.create({
     textAlign: 'center',
     marginTop: 20,
     fontSize: 16,
+  },
+  // New styles for DebtManager
+  headerContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  heading: {
+    fontSize: 24,
+    fontWeight: 'bold',
+  },
+  subHeading: {
+    fontSize: 16,
+    color: 'gray',
+  },
+  addButton: {
+    backgroundColor: '#007BFF',
+    padding: 10,
+    borderRadius: 5,
+  },
+  addButtonText: {
+    color: '#fff',
+    fontWeight: 'bold',
+  },
+  card: {
+    backgroundColor: '#fff',
+    padding: 15,
+    marginVertical: 8,
+    borderRadius: 8,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 8,
+    elevation: 2,
+  },
+  cardTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  cardText: {
+    fontSize: 16,
+    marginVertical: 4,
+  },
+  statusContainer: {
+    marginTop: 10,
+  },
+  statusBarContainer: {
+    height: 8,
+    backgroundColor: '#f3f3f3',
+    borderRadius: 4,
+    overflow: 'hidden',
+    marginTop: 5,
+  },
+  statusBar: {
+    height: '100%',
+    backgroundColor: '#4caf50',
   },
 });
