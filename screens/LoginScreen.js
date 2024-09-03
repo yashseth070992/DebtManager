@@ -27,6 +27,10 @@ const LoginScreen = ({ navigation }) => {
         onChangeText={setPassword}
       />
       <Button title="Login" onPress={handleLogin} />
+      <Button
+        title="Don't have an account? Sign Up"
+        onPress={() => navigation.navigate('SignUp')}
+      />
     </View>
   );
 };

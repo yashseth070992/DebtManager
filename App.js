@@ -7,7 +7,10 @@ import SipCalculator from './screens/SipCalculator';
 import DebtManager from './screens/DebtManager';
 import CustomDrawerContent from './components/CustomDrawerContent'; 
 import LoginScreen from './screens/LoginScreen'; 
-import styles from './styles'; 
+import SignUpScreen from './screens/SignUpScreen'; 
+
+
+// import { GoogleSignin } from '@react-native-google-signin/google-signin';
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -23,11 +26,17 @@ const MainApp = () => (
 );
 
 export default function App() {
+  // useEffect(() => {
+  //   GoogleSignin.configure({
+  //     webClientId: 'YOUR_WEB_CLIENT_ID', // From Firebase Console
+  //   });
+  // }, []);
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="MainApp" component={MainApp} />
+        <Stack.Screen name="SignUp" component={SignUpScreen} /> 
       </Stack.Navigator>
       <StatusBar style="auto" />
     </NavigationContainer>

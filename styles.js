@@ -7,6 +7,12 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  scrollViewContainer: {
+    flexGrow: 1,
+    padding: 20,
+    alignItems: 'center',
+    backgroundColor: '#fff',
+  },
   input: {
     height: 40,
     borderColor: 'gray',
@@ -72,7 +78,7 @@ export default StyleSheet.create({
   },
   sliderContainer: {
     marginBottom: 15,
-    paddingHorizontal: 10,  // Add padding for a better touchable area
+    paddingHorizontal: 10, // Add padding for better touchable area
     width: '100%',
   },
   sliderLabel: {
@@ -81,7 +87,31 @@ export default StyleSheet.create({
   },
   slider: {
     width: '100%',
-    // Remove or adjust height
-    height: 40,  // Try increasing or removing this if the slider is still unresponsive
+    height: 40, // Maintain height, but you can adjust if needed
+  },
+  googleButton: {
+    backgroundColor: '#4285F4',
+    padding: 10,
+    borderRadius: 5,
+    marginBottom: 10,
+    width: '80%',
+    alignItems: 'center',
+  },
+  googleButtonText: {
+    color: '#fff',
+    textAlign: 'center',
+    fontSize: 16,
+  },
+  orText: {
+    textAlign: 'center',
+    marginVertical: 10,
+    fontSize: 16,
+    color: '#555',
+  },
+  signInLink: {
+    color: '#1E90FF',
+    textAlign: 'center',
+    marginTop: 20,
+    fontSize: 16,
   },
 });

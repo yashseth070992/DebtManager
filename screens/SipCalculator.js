@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { View, Text, Button, ScrollView } from 'react-native';
 import BarChartComponent from '../components/BarChartComponent';
 import PieChartComponent from '../components/PieChartComponent';
-import CustomSlider from '../components/CustomSlider'; // Import the CustomSlider component
-import styles from '../styles'; // Import the styles from styles.js
+import CustomSlider from '../components/CustomSlider';
+import styles from '../styles';
 
 const SipCalculator = () => {
   const [monthlyInvestment, setMonthlyInvestment] = useState(5000);
@@ -58,18 +58,18 @@ const SipCalculator = () => {
     labels: yearlyData.map(d => `Year ${d.year}`),
     datasets: [
       {
-        data: yearlyData.map(d => d.investment), // Investment
-        color: (opacity = 1) => `rgba(255, 0, 0, ${opacity})`, // Investment color
+        data: yearlyData.map(d => d.investment),
+        color: (opacity = 1) => `rgba(255, 0, 0, ${opacity})`,
       },
       {
-        data: yearlyData.map(d => d.profit), // Profit
-        color: (opacity = 1) => `rgba(0, 255, 0, ${opacity})`, // Profit color
+        data: yearlyData.map(d => d.profit),
+        color: (opacity = 1) => `rgba(0, 255, 0, ${opacity})`,
       },
     ],
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <ScrollView contentContainerStyle={styles.scrollViewContainer}>
       <Text style={styles.title}>SIP Calculator</Text>
 
       <CustomSlider
@@ -108,13 +108,9 @@ const SipCalculator = () => {
               Expected Maturity Amount: ₹{maturityAmount}
             </Text>
           </View>
-          <PieChartComponent
-            data={pieData}
-          />
+          <PieChartComponent data={pieData} />
           <Text style={styles.chartTitle}>Yearly Investment vs Total Amount</Text>
-          <BarChartComponent
-            data={barData}
-          />
+          <BarChartComponent data={barData} />
         </>
       )}
     </ScrollView>
