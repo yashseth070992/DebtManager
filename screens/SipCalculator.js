@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { View, Text, Button, StyleSheet, ScrollView } from 'react-native';
-import BarChartComponent from './BarChartComponent';
-import PieChartComponent from './PieChartComponent';
-import CustomSlider from './CustomSlider'; // Import the CustomSlider component
+import { View, Text, Button, ScrollView } from 'react-native';
+import BarChartComponent from '../components/BarChartComponent';
+import PieChartComponent from '../components/PieChartComponent';
+import CustomSlider from '../components/CustomSlider'; // Import the CustomSlider component
+import styles from '../styles'; // Import the styles from styles.js
 
 const SipCalculator = () => {
   const [monthlyInvestment, setMonthlyInvestment] = useState(5000);
@@ -119,36 +120,5 @@ const SipCalculator = () => {
     </ScrollView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    padding: 20,
-    backgroundColor: '#fff',
-    flexGrow: 1,
-  },
-  title: {
-    fontSize: 24,
-    marginBottom: 20,
-    textAlign: 'center',
-  },
-  result: {
-    marginTop: 20,
-    padding: 10,
-    backgroundColor: '#f9f9f9',
-    borderRadius: 5,
-    borderWidth: 1,
-    borderColor: '#ccc',
-  },
-  resultText: {
-    fontSize: 18,
-    textAlign: 'center',
-  },
-  chartTitle: {
-    fontSize: 18,
-    marginTop: 20,
-    marginBottom: 10,
-    textAlign: 'center',
-  },
-});
 
 export default SipCalculator;

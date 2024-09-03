@@ -1,11 +1,17 @@
-// CustomDrawerContent.js
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import { DrawerContentScrollView } from '@react-navigation/drawer';
+import styles from './../styles'; 
 
 const CustomDrawerContent = (props) => {
-  // Use the navigation prop from props rather than useNavigation hook
   const { navigation } = props;
+
+  const handleLogout = () => {
+    navigation.reset({
+      index: 0,
+      routes: [{ name: 'Login' }],
+    });
+  };
 
   return (
     <DrawerContentScrollView {...props}>
@@ -16,22 +22,21 @@ const CustomDrawerContent = (props) => {
         >
           <Text>SIP Calculator</Text>
         </TouchableOpacity>
-        {/* Add more items here */}
+        <TouchableOpacity
+          onPress={() => navigation.navigate('DebtManager')}
+          style={styles.drawerItem}
+        >
+          <Text>Debt Manager</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={handleLogout}
+          style={[styles.drawerItem, styles.logoutButton]}
+        >
+          <Text>Logout</Text>
+        </TouchableOpacity>
       </View>
     </DrawerContentScrollView>
   );
 };
-
-const styles = StyleSheet.create({
-  drawerContent: {
-    flex: 1,
-    paddingTop: 50,
-  },
-  drawerItem: {
-    padding: 20,
-    borderBottomWidth: 1,
-    borderBottomColor: '#ccc',
-  },
-});
 
 export default CustomDrawerContent;
