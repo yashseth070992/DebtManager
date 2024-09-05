@@ -30,10 +30,10 @@ const SplashScreen = ({ navigation }) => {
     <View style={styles.container}>
       <Animated.View style={[styles.logoContainer, { opacity: fadeAnim, transform: [{ scale: zoomAnim }] }]}>
         <Image source={logo} style={styles.logo} />
-      </Animated.View>
-      <Animated.View style={[styles.textContainer, { opacity: fadeAnim }]}>
         <Text style={styles.appName}>Debt Manager</Text>
       </Animated.View>
+      {/* <Animated.View style={[styles.textContainer, { opacity: fadeAnim }]}>
+      </Animated.View> */}
     </View>
   );
 };

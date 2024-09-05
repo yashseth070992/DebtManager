@@ -38,13 +38,6 @@ const SignUpScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Sign Up</Text>
-
-      <TouchableOpacity style={styles.googleButton} onPress={handleGoogleSignIn}>
-        <Text style={styles.googleButtonText}>Sign Up with Google</Text>
-      </TouchableOpacity>
-
-      <Text style={styles.orText}>OR</Text>
-
       <TextInput
         style={styles.input}
         placeholder="Username"
@@ -66,6 +59,13 @@ const SignUpScreen = ({ navigation }) => {
         secureTextEntry
       />
       <Button title="Sign Up" onPress={handleSignUp} />
+
+      <Text style={styles.orText}>OR</Text>
+
+      <TouchableOpacity style={styles.googleButton} onPress={handleGoogleSignIn}>
+        <Text style={styles.googleButtonText}>Sign Up with Google</Text>
+      </TouchableOpacity>
+
 
       {/* Optionally, add a link to sign in page */}
       <TouchableOpacity onPress={() => navigation.navigate('Login')}>

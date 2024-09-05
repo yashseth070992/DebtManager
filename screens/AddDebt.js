@@ -8,9 +8,7 @@ const categories = [
   'Auto Loan',
   'Credit Card',
   'Home Loan',
-  'Student Loan',
-  // Add more categories as needed
-];
+  'Student Loan'];
 
 const AddDebt = ({ navigation }) => {
   const [category, setCategory] = useState('');
@@ -21,7 +19,6 @@ const AddDebt = ({ navigation }) => {
   const [nextDueDate, setNextDueDate] = useState('');
 
   const handleSave = () => {
-    // Add validation here if needed
     console.log({
       category,
       debtName,
@@ -30,32 +27,33 @@ const AddDebt = ({ navigation }) => {
       emi,
       nextDueDate,
     });
-    navigation.navigate('DebtManager'); // Explicitly navigate to DebtManager
+    navigation.navigate('DebtManager');
   };
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Add Debt</Text>
-      <View style={styles.inputContainer}>
-        <Text style={styles.label}>Category</Text>
-        <Picker
-          selectedValue={category}
-          onValueChange={(itemValue) => setCategory(itemValue)}
-          style={styles.picker}
-        >
-          <Picker.Item label="Select a category" value="" />
-          {categories.map((cat, index) => (
-            <Picker.Item key={index} label={cat} value={cat} />
-          ))}
-        </Picker>
-      </View>
+
+      {/* Debt Name */}
       <TextInput
         style={styles.input}
         placeholder="Debt Name"
         value={debtName}
         onChangeText={setDebtName}
       />
-      <TextInput
+
+      {/* Category - Placed below Debt Name */}
+        <Picker
+          selectedValue={category}
+          onValueChange={(itemValue) => setCategory(itemValue)}
+          style={styles.input}
+         >
+          <Picker.Item label="Select a category" value="" />
+          {categories.map((cat, index) => (
+            <Picker.Item key={index} label={cat} value={cat} />
+          ))}
+        </Picker>
+       <TextInput
         style={styles.input}
         placeholder="Current Balance"
         keyboardType="numeric"
