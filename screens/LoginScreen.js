@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 import styles from './../styles'; 
 
 const LoginScreen = ({ navigation }) => {
@@ -13,24 +13,32 @@ const LoginScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Login</Text>
+
       <TextInput
         style={styles.input}
         placeholder="Username"
+        placeholderTextColor="#aaa"
         value={username}
         onChangeText={setUsername}
       />
       <TextInput
         style={styles.input}
         placeholder="Password"
+        placeholderTextColor="#aaa"
         secureTextEntry
         value={password}
         onChangeText={setPassword}
       />
-      <Button title="Login" onPress={handleLogin} />
-      <Button
-        title="Don't have an account? Sign Up"
-        onPress={() => navigation.navigate('SignUp')}
-      />
+
+      <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
+        <Text style={styles.loginButtonText}>Login</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
+        <Text style={styles.signUpText}>
+          Don't have an account? <Text style={styles.signUpLink}>Sign Up</Text>
+        </Text>
+      </TouchableOpacity>
     </View>
   );
 };
