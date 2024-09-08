@@ -1,13 +1,30 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity  } from 'react-native';
-import styles from './../styles'; 
+import { View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
+import axios from 'axios';
+import styles from './../styles';
+import AsyncStorage from '@react-native-async-storage/async-storage'; // Import AsyncStorage
 
 const LoginScreen = ({ navigation }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = () => {
-    navigation.replace('MainApp'); 
+  const handleLogin = async () => {
+    try {
+      const response = await axios.post(
+        'http://debtmanager-env.eba-byvqjeud.ap-south-1.elasticbeanstalk.com/login',
+        { username, password },
+        { headers: { 'Content-Type': 'application/json' } }
+      );
+
+      // Store the token in AsyncStorage
+      await AsyncStorage.setItem('token', response.data.token);
+
+      // Navigate to MainApp
+      navigation.replace('MainApp');
+    } catch (error) {
+      console.error(error);
+      Alert.alert('Error', 'Invalid username or password');
+    }
   };
 
   return (

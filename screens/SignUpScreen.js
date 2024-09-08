@@ -1,38 +1,26 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, TouchableOpacity, Alert } from 'react-native';
-// import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
-import styles from '../styles'; // Import your styles
+import axios from 'axios';
+import styles from '../styles';
 
 const SignUpScreen = ({ navigation }) => {
   const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleGoogleSignIn = async () => {
-    // try {
-    //   await GoogleSignin.hasPlayServices();
-    //   const userInfo = await GoogleSignin.signIn();
-    //   Alert.alert('Google Sign-In Success', `Welcome ${userInfo.user.name}`);
-    // } catch (error) {
-    //   if (error.code === statusCodes.SIGN_IN_CANCELLED) {
-    //     Alert.alert('Google Sign-In Cancelled');
-    //   } else if (error.code === statusCodes.IN_PROGRESS) {
-    //     Alert.alert('Google Sign-In In Progress');
-    //   } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
-    //     Alert.alert('Play Services Not Available');
-    //   } else {
-    //     Alert.alert('Google Sign-In Error', error.toString());
-    //   }
-    // }
-  };
-
   const handleSignUp = () => {
-    if (!username || !email || !password) {
+    if (!username  || !password) {
       Alert.alert('Error', 'Please fill out all fields');
       return;
     }
-    // Handle manual sign-up logic here (e.g., API call)
-    Alert.alert('Sign-Up Success', `Welcome ${username}`);
+
+    axios.post('http://debtmanager-env.eba-byvqjeud.ap-south-1.elasticbeanstalk.com/signup', { username, password },  { headers: { 'Content-Type': 'application/json' } })
+        .then(response => {
+        Alert.alert('Sign-Up Success', `Welcome ${username}`);
+        navigation.navigate('Login');  // Navigate to login on success
+      })
+      .catch(error => {
+        Alert.alert('Error', 'Sign-Up failed');
+      });
   };
 
   return (
@@ -46,28 +34,12 @@ const SignUpScreen = ({ navigation }) => {
       />
       <TextInput
         style={styles.input}
-        placeholder="Email"
-        value={email}
-        onChangeText={setEmail}
-        keyboardType="email-address"
-      />
-      <TextInput
-        style={styles.input}
         placeholder="Password"
         value={password}
         onChangeText={setPassword}
         secureTextEntry
       />
       <Button title="Sign Up" onPress={handleSignUp} />
-
-      <Text style={styles.orText}>OR</Text>
-
-      <TouchableOpacity style={styles.googleButton} onPress={handleGoogleSignIn}>
-        <Text style={styles.googleButtonText}>Sign Up with Google</Text>
-      </TouchableOpacity>
-
-
-      {/* Optionally, add a link to sign in page */}
       <TouchableOpacity onPress={() => navigation.navigate('Login')}>
         <Text style={styles.signInLink}>Already have an account? Sign In</Text>
       </TouchableOpacity>      

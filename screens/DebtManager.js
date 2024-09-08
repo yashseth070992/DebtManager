@@ -1,55 +1,98 @@
-import React from 'react';
-import { View, Text, TouchableOpacity, ScrollView, Dimensions } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, Text, TouchableOpacity, ScrollView, Dimensions, Alert } from 'react-native';
 import { PieChart } from 'react-native-chart-kit';
 import styles from './../styles';
-
-// Dummy data for debts
-const debts = [
-  { id: 1, name: 'Personal Loan', category: 'Personal Loan', emi: '$200', rate: '5%', duration: '12 months', totalAmount: 2400, amountPaid: 600 },
-  { id: 2, name: 'Car Loan', category: 'Auto Loan', emi: '$300', rate: '4%', duration: '24 months', totalAmount: 7200, amountPaid: 1500 },
-  { id: 3, name: 'Credit Card1', category: 'Credit Card', emi: '$100', rate: '18%', duration: '6 months', totalAmount: 600, amountPaid: 100 },
-  { id: 4, name: 'Credit Card2', category: 'Credit Card', emi: '$80', rate: '18%', duration: '3 months', totalAmount: 400, amountPaid: 200 },
-];
-
-const getCategoryData = () => {
-  const categories = debts.reduce((acc, debt) => {
-    if (!acc[debt.category]) {
-      acc[debt.category] = 0;
-    }
-    acc[debt.category] += debt.totalAmount - debt.amountPaid;
-    return acc;
-  }, {});
-
-  return Object.keys(categories).map(category => ({
-    name: category,
-    population: categories[category],
-    color: getRandomColor(),
-    legendFontColor: '#7F7F7F',
-    legendFontSize: 15,
-  }));
-};
-
-const getDebtData = () => {
-  return debts.map(debt => ({
-    name: debt.name,
-    population: debt.totalAmount - debt.amountPaid,
-    color: getRandomColor(),
-    legendFontColor: '#7F7F7F',
-    legendFontSize: 15,
-  }));
-};
-
-const getRandomColor = () => {
-  const letters = '0123456789ABCDEF';
-  let color = '#';
-  for (let i = 0; i < 6; i++) {
-    color += letters[Math.floor(Math.random() * 16)];
-  }
-  return color;
-};
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage'; // To get the stored JWT token
 
 const DebtManager = ({ navigation }) => {
+  const [debts, setDebts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const screenWidth = Dimensions.get('window').width;
+
+  useEffect(() => {
+    const fetchDebts = async () => {
+      try {
+        const token = await AsyncStorage.getItem('token');
+        if (!token) {
+          Alert.alert('Error', 'User not authenticated.');
+          return;
+        }
+
+        const response = await axios.get(
+          'http://debtmanager-env.eba-byvqjeud.ap-south-1.elasticbeanstalk.com/debts',
+          {
+            headers: {
+              Authorization: `Bearer ${token}`, // Pass JWT token in the Authorization header
+            },
+          }
+        );
+
+        setDebts(response.data);
+      } catch (err) {
+        console.error('Error fetching debts:', err);
+        setError('Failed to fetch debts.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchDebts();
+  }, []);
+
+  const getCategoryData = () => {
+    const categories = debts.reduce((acc, debt) => {
+      if (!acc[debt.category]) {
+        acc[debt.category] = 0;
+      }
+      acc[debt.category] += debt.totalAmount - debt.amountPaid;
+      return acc;
+    }, {});
+
+    return Object.keys(categories).map(category => ({
+      name: category,
+      population: categories[category],
+      color: getRandomColor(),
+      legendFontColor: '#7F7F7F',
+      legendFontSize: 15,
+    }));
+  };
+
+  const getDebtData = () => {
+    return debts.map(debt => ({
+      name: debt.name,
+      population: debt.totalAmount - debt.amountPaid,
+      color: getRandomColor(),
+      legendFontColor: '#7F7F7F',
+      legendFontSize: 15,
+    }));
+  };
+
+  const getRandomColor = () => {
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  };
+
+  if (loading) {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.title}>Loading...</Text>
+      </View>
+    );
+  }
+
+  if (error) {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.title}>Error: {error}</Text>
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>
@@ -58,7 +101,7 @@ const DebtManager = ({ navigation }) => {
           <Text style={styles.heading}>Debts Manage</Text>
           <Text style={styles.subHeading}>All your debts in one place</Text>
         </View>
-        <TouchableOpacity style={styles.addButton}  onPress={() => navigation.navigate('AddDebt')}>
+        <TouchableOpacity style={styles.addButton} onPress={() => navigation.navigate('AddDebt')}>
           <Text style={styles.addButtonText}>Add Debt</Text>
         </TouchableOpacity>
       </View>
